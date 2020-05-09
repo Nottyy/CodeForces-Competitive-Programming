@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.WebSockets;
 
 namespace _1800____E611___NewYearParties
 {
@@ -15,12 +16,6 @@ namespace _1800____E611___NewYearParties
         {
             int n = int.Parse(Console.ReadLine());
             var houseCoordinates = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-
-            if (n == 9 && houseCoordinates[3] == 9)
-            {
-                Console.WriteLine("2 7");
-                return;
-            }
 
             var allHouses = new int[n + 1];
             var allHousesBool = new bool[n + 1];
@@ -38,63 +33,59 @@ namespace _1800____E611___NewYearParties
 
         private static int FindMaxHouses(int[] allHouses)
         {
+            var arr = new bool[allHouses.Length + 1];
             for (int i = 1; i <= allHouses.Length - 1; i++)
             {
-                var friendsInCurrentHouse = allHouses[i];
-
-                if (i == allHouses.Length - 1)
-                {
-                    if (friendsInCurrentHouse == 2)
-                    {
-                        if (allHouses[i - 1] == 0)
-                        {
-                            allHouses[i - 1]++;
-                            continue;
-                        }
-                    }
-                    else if (friendsInCurrentHouse > 2)
-                    {
-                        if (allHouses[i - 1] == 0)
-                        {
-                            allHouses[i - 1]++;
-                        }
-
-                        continue;
-                    }
-                    continue;
-                }
-
-                if (friendsInCurrentHouse == 0)
+                var currentHouse = allHouses[i];
+                if (currentHouse == 0)
                 {
                     continue;
                 }
-                else if (friendsInCurrentHouse == 2)
+                if (currentHouse == 1)
                 {
-                    if (allHouses[i + 1] == 0)
+                    if (arr[i - 1] == false)
                     {
-                        allHouses[i + 1]++;
-                        continue;
+                        arr[i - 1] = true;
                     }
-                    else if (allHouses[i - 1] == 0)
+                    else if(arr[i] == false)
                     {
-                        allHouses[i - 1]++;
-                        continue;
+                        arr[i] = true;
+                    }
+                    else
+                    {
+                        arr[i + 1] = true;
+                    }
+
+                    continue;
+                }
+
+                if (currentHouse > 0)
+                {
+                    if (arr[i - 1] == false)
+                    {
+                        arr[i - 1] = true;
+                        currentHouse--;
                     }
                 }
-                else if (friendsInCurrentHouse > 2)
+
+
+                if (currentHouse > 0)
                 {
-                    if (allHouses[i + 1] == 0)
+                    if (arr[i] == false)
                     {
-                        allHouses[i + 1]++;
+                        arr[i] = true;
+                        currentHouse--;
                     }
-                    if (allHouses[i - 1] == 0)
-                    {
-                        allHouses[i - 1]++;
-                    }
+                }
+
+                if (currentHouse > 0)
+                {
+                    arr[i + 1] = true;
                 }
             }
 
-            var maxHouses = allHouses.Count(x => x > 0);
+
+            var maxHouses = arr.Count(x => x);
             return maxHouses;
         }
 
