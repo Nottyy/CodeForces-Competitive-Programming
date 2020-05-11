@@ -34,58 +34,63 @@ namespace _1800____E611___NewYearParties
         private static int FindMaxHouses(int[] allHouses)
         {
             var arr = new bool[allHouses.Length + 1];
-            for (int i = 1; i <= allHouses.Length - 1; i++)
+            var maxHouses = 0;
+            var h = 1;
+            do
             {
-                var currentHouse = allHouses[i];
-                if (currentHouse == 0)
-                {
-                    continue;
-                }
+                var currentHouse = allHouses[h];
+
                 if (currentHouse == 1)
                 {
-                    if (arr[i - 1] == false)
+                    if (arr[h - 1] == false)
                     {
-                        arr[i - 1] = true;
+                        arr[h - 1] = true;
+                        maxHouses++;
                     }
-                    else if(arr[i] == false)
+                    else if (arr[h] == true)
                     {
-                        arr[i] = true;
+                        arr[h + 1] = true;
+                        maxHouses++;
                     }
-                    else
+                    else if (arr[h] == false)
                     {
-                        arr[i + 1] = true;
+                        arr[h] = true;
+                        maxHouses++;
                     }
-
-                    continue;
                 }
-
-                if (currentHouse > 0)
+                else if (currentHouse == 2)
                 {
-                    if (arr[i - 1] == false)
+                    if (arr[h - 1] == false)
                     {
-                        arr[i - 1] = true;
-                        currentHouse--;
+                        arr[h - 1] = true;
+                        arr[h] = true;
+                        maxHouses += 2;
+                    }
+                    else if (arr[h] == true)
+                    {
+                        arr[h + 1] = true;
+                        maxHouses += 1;
+                    }
+                    else if (arr[h] == false)
+                    {
+                        arr[h] = true;
+                        arr[h + 1] = true;
+                        maxHouses += 2;
                     }
                 }
-
-
-                if (currentHouse > 0)
+                else if(currentHouse > 2)
                 {
-                    if (arr[i] == false)
-                    {
-                        arr[i] = true;
-                        currentHouse--;
-                    }
+                    maxHouses += arr[h - 1] == false ? 3 : (arr[h] == true ? 1 : 2);
+
+                    arr[h - 1] = true;
+                    arr[h] = true;
+                    arr[h + 1] = true;
                 }
 
-                if (currentHouse > 0)
-                {
-                    arr[i + 1] = true;
-                }
+                h++;
             }
+            while (h <= allHouses.Length - 1);
 
-
-            var maxHouses = arr.Count(x => x);
             return maxHouses;
         }
 
@@ -123,9 +128,6 @@ namespace _1800____E611___NewYearParties
                     minHouses++;
                     continue;
                 }
-
-                //allHousesBool[i] = true;
-                //minHouses++;
             }
 
             return minHouses;
