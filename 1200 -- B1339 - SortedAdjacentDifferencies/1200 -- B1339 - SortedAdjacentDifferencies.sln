@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1200 -- B1339 - SortedAdjacentDifferencies", "1200 -- B1339 - SortedAdjacentDifferencies.csproj", "{23320B9A-21B9-4C9B-A779-64DEF431D0D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23320B9A-21B9-4C9B-A779-64DEF431D0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23320B9A-21B9-4C9B-A779-64DEF431D0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23320B9A-21B9-4C9B-A779-64DEF431D0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23320B9A-21B9-4C9B-A779-64DEF431D0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE925DE2-188F-4C67-8138-5A1310833D05}
+	EndGlobalSection
+EndGlobal
