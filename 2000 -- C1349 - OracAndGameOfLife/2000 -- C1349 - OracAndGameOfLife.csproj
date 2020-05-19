@@ -6,4 +6,8 @@
     <RootNamespace>_2000____C1349___OracAndGameOfLife</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Program.cs~RF91ec91.TMP" />
+  </ItemGroup>
+
 </Project>
