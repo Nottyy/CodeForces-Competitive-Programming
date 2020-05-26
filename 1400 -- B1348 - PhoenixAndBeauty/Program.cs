@@ -13,6 +13,7 @@ namespace _1400____B1348___PhoenixAndBeauty
         static void Main()
         {
             int t = int.Parse(Console.ReadLine());
+            var sb = new StringBuilder();
 
             for (int i = 0; i < t; i++)
             {
@@ -30,9 +31,7 @@ namespace _1400____B1348___PhoenixAndBeauty
                     continue;
                 }
 
-                Array.Sort(beautifulArr);
                 var hashset = new HashSet<int>(beautifulArr);
-                var sb = new StringBuilder();
 
                 if (hashset.Count > k)
                 {
@@ -57,10 +56,9 @@ namespace _1400____B1348___PhoenixAndBeauty
                     }
 
                     var result = sb.ToString();
-                    sb.Clear();
-                    Console.WriteLine(k * beautifulArr.Length);
+                    Console.WriteLine(k * arrLength);
 
-                    for (int j = 0; j < beautifulArr.Length; j++)
+                    for (int j = 1; j < arrLength; j++)
                     {
                         sb.Append(result);
                     }
