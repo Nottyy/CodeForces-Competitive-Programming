@@ -21,7 +21,7 @@ namespace _1200____EnergyDrinks
                 int currentDrink = list2.First();
                 int res = currentCaffMG * currentDrink;
 
-                if (res + stamatCurrentMG < 300)
+                if (res + stamatCurrentMG <= 300)
                 {
                     stamatCurrentMG += res;
                     stamatAllowedMG = 300 - stamatCurrentMG;
