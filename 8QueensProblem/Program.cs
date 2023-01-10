@@ -27,7 +27,7 @@ namespace _8QueensProblem
 
             for (int row = 0; row < size; row++)
             {
-                if (!CheckCollisions(row, col))
+                if (CheckCollisions(row, col) == false)
                 {
                     matrix[row, col] = true;
                     PlaceQueen(col + 1);
@@ -55,36 +55,36 @@ namespace _8QueensProblem
             }
 
             // diagonal up right
-            for (int i = col, j=row; i < 0; i++,j--)
+            for (int i = col, j=row; i < size && j < size && j >= 0; i++,j--)
             {
-                if (matrix[i,j])
-                {
-                    return true;
-                }
+                    if (matrix[j, i])
+                    {
+                        return true;
+                    }
             }
 
             // diagonal up left
-            for (int i = col, j = row; i < 0; i--, j--)
+            for (int i = col, j = row; i >= 0 && j >= 0; i--, j--)
             {
-                if (matrix[i, j])
-                {
-                    return true;
-                }
+                    if (matrix[j, i])
+                    {
+                        return true;
+                    }
             }
 
             // diagonal down left
-            for (int i = col, j = row; i < 0; i--, j++)
+            for (int i = col, j = row; i >= 0 && j >= 0 && j < size; i--, j++)
             {
-                if (matrix[i, j])
-                {
-                    return true;
-                }
+                    if (matrix[j, i])
+                    {
+                        return true;
+                    }
             }
 
             // diagonal down right
-            for (int i = col, j = row; i < 0; i++, j++)
+            for (int i = col, j = row; i < size && j < size; i++, j++)
             {
-                if (matrix[i, j])
+                if (matrix[j, i])
                 {
                     return true;
                 }
