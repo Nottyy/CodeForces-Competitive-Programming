@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetAllExpressionsInBrackets", "GetAllExpressionsInBrackets.csproj", "{55D6C6B7-BCA4-41CF-B847-0227DD6ADEDB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55D6C6B7-BCA4-41CF-B847-0227DD6ADEDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D6C6B7-BCA4-41CF-B847-0227DD6ADEDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D6C6B7-BCA4-41CF-B847-0227DD6ADEDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D6C6B7-BCA4-41CF-B847-0227DD6ADEDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B35A6A99-D7AB-4452-A0D8-227974CCD16A}
+	EndGlobalSection
+EndGlobal
