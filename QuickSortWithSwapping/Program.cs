@@ -54,8 +54,6 @@ namespace QuickSortWithSwapping
 
             QuickSortSwap(arr, left, leftpointer - 1);
             QuickSortSwap(arr, leftpointer, right);
-
-
         }
     }
 }
