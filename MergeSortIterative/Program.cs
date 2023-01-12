@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,29 @@ namespace MergeSortIterative
     {
         static void Main(string[] args)
         {
-            var arr = new int[] { 5, 0, 3, 9, 7, 1, 2, 4, 2, 0, 3, 9, 7, 1, 2, 4, 2 };
-            Console.WriteLine(String.Join(" ", MergeSortIterative(arr)));
+            var rnd = new Random();
+            var size = 1000000;
+            var arr = new int[size];
+            for (int i = 0; i < size; i++)
+            {
+                arr[i] = rnd.Next();
+            }
+
+            //var arr = new int[] { 5, 0, 3, 9, 7, 1, 2, 4, 2, 0, 3, 9, 7, 1, 2, 4, 2 };
+            //Console.WriteLine(String.Join(" ", MergeSortIterative(arr)));
+            var sw = new Stopwatch();
+            sw.Start();
+            MergeSortIterative(arr);
+            sw.Stop();
+            Console.WriteLine(sw.Elapsed);
+
+            for (int i = 1; i < arr.Length; i++)
+            {
+                if (arr[i - 1] > arr[i])
+                {
+                    Console.WriteLine("error");
+                }
+            }
 
         }
 
