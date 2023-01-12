@@ -13,7 +13,7 @@ namespace BinarySearchRecursion
         static void Main(string[] args)
         {
             var arr = new int[] { 1, 5, 10, 15, 20, 25, 40 };
-            Console.WriteLine(arr.BinarySearchRecursion(40));
+            Console.WriteLine(arr.BinarySearchRecursion(10));
         }
 
         public static int BinarySearchRecursion<T>(this T[] arr, T value) 
