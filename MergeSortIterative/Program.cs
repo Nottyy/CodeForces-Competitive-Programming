@@ -10,25 +10,26 @@ namespace MergeSortIterative
     {
         static void Main(string[] args)
         {
-            var arr = new int[] { 5, 0, 3, 9, 7, 1, 2, 4, 1, 2, 3, 55, 13, 14, 0};
+            var arr = new int[] { 5, 0, 3, 9, 7, 1, 2, 4, 2, 0, 3, 9, 7, 1, 2, 4, 2 };
             Console.WriteLine(String.Join(" ", MergeSortIterative(arr)));
 
         }
 
         private static int[] MergeSortIterative(int[] arr)
         {
-            for (int half = 1; half <= arr.Length; half *= 2)
+            // 5, 0, 3, 9, 7, 1, 2, 4, 2
+            for (int half = 1; half <= arr.Length; half = half * 2)
             {
-                for (int left = 0; left < arr.Length; left+=half * 2)
+                for (int left = 0; left < arr.Length; left+= half * 2)
                 {
                     int middle = left + half;
-
                     if (middle >= arr.Length)
                     {
                         break;
                     }
+
                     int right = left + half * 2;
-                    if (right > arr.Length)
+                    if (right >= arr.Length)
                     {
                         right = arr.Length;
                     }
