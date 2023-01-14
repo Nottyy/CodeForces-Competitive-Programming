@@ -10,7 +10,7 @@ namespace ShuffleValuesInArray
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(string.Join(" ",Shuffle(10)));
+            Console.WriteLine(string.Join(" ",Shuffle(20)));
         }
 
         static int[] Shuffle(int n)
@@ -27,7 +27,8 @@ namespace ShuffleValuesInArray
             for (int i = 0; i < arr.Length; i++)
             {
                 var j = rnd.Next() % (i + 1);
-                if (i != j)
+
+                if (j != i)
                 {
                     var tmp = arr[i];
                     arr[i] = arr[j];
