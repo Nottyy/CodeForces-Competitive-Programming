@@ -33,11 +33,11 @@ namespace Hashset
                 return false;
             }
 
-            if ((double)this.Count / buffer.Length > FULL_PERCENTAGE)
-            {
-                this.Resize(buffer.Length * RESIZE_FACTOR);
-                index = hash % buffer.Length;
-            }
+            //if ((double)this.Count / buffer.Length > FULL_PERCENTAGE)
+            //{
+            //    this.Resize(buffer.Length * RESIZE_FACTOR);
+            //    index = hash % buffer.Length;
+            //}
 
             this.Count++;
             buffer[index] = new SinglyLinkedlist<T>(value, buffer[index]);
@@ -49,15 +49,15 @@ namespace Hashset
         {
             var hash = (uint)value.GetHashCode();
             var index = hash % buffer.Length;
+            bool removed;
 
             if (buffer[index] == null)
             {
                 return false;
             }
 
-            bool removed;
+            buffer[index] = buffer[index].RemoveAndGetNext(value, out removed);
 
-            buffer[index].Remove(value, out removed);
             if (removed)
             {
                 this.Count--;

@@ -34,7 +34,7 @@ namespace Hashset
             return node.next.Contains(value);
         }
 
-        public SinglyLinkedlist<T> Remove(T value, out bool removed)
+        public SinglyLinkedlist<T> RemoveAndGetNext(T value, out bool removed)
         {
             if (this.value.Equals(value))
             {
@@ -48,7 +48,7 @@ namespace Hashset
                 return this;
             }
 
-            this.next = this.next.Remove(value, out removed);
+            this.next = this.next.RemoveAndGetNext(value, out removed);
             return this;
         }
         public IEnumerator<T> GetEnumerator()
