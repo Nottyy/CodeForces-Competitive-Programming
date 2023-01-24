@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -54,10 +55,10 @@ namespace HashSetWithLists
             if (buffer[index] == null)
             {
                 buffer[index] = new List<T>();
+                this.usedIndeces.Add(index);
             }
 
             buffer[index].Add(value);
-            this.usedIndeces.Add(index);
             this.count++;
 
             return true;
@@ -124,6 +125,11 @@ namespace HashSetWithLists
             }
 
             var ind = buffer[index].IndexOf(value);
+
+            if (ind < 0)
+            {
+                return default(T);
+            }
 
             return buffer[index][ind];
         }

@@ -18,7 +18,17 @@ namespace MyDictionary
 
             Console.WriteLine(String.Join(" ", dict));
 
-            Console.WriteLine(dict[55]);
+            dict[50] = 101;
+            Console.WriteLine(String.Join(" ", dict));
+
+            dict[51] = 222;
+            dict[51] = 222;
+            dict[51] = 222;
+            dict[51] = 444;
+
+            Console.WriteLine(String.Join(" ", dict));
+
+
         }
     }
 }

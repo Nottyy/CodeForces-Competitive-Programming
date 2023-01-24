@@ -45,7 +45,16 @@ namespace MyDictionary
             }
             set
             {
-                this.Find(key).Value = value;
+                var found = this.Find(key);
+
+                if (found == null)
+                {
+                    this.Add(key, value);
+                }
+                else
+                {
+                    found.Value = value;
+                }
             }
         }
 
