@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +88,7 @@ namespace HashSetWithLists
             usedIndeces = newIndeces;
         }
 
-        public bool RemoveAndGetNext(T value)
+        public bool Remove(T value)
         {
             var hash = value.GetHashCode();
             var index = hash % this.buffer.Length;
@@ -110,6 +111,21 @@ namespace HashSetWithLists
             }
 
             return false;
+        }
+
+        public T Find(T value)
+        {
+            var hash = value.GetHashCode();
+            var index = hash % this.buffer.Length;
+
+            if (buffer[index] == null)
+            {
+                throw new ArgumentException("No such value!");
+            }
+
+            var ind = buffer[index].IndexOf(value);
+
+            return buffer[index][ind];
         }
         public IEnumerator<T> GetEnumerator()
         {

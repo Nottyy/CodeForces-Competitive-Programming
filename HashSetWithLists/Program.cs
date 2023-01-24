@@ -18,12 +18,12 @@ namespace HashSetWithLists
             }
 
             Console.WriteLine(String.Join(" ", hash));
-            Console.WriteLine(hash.RemoveAndGetNext(4));
+            Console.WriteLine(hash.Remove(4));
             Console.WriteLine(String.Join(" ", hash));
-            Console.WriteLine(hash.RemoveAndGetNext(4));
-            Console.WriteLine(hash.RemoveAndGetNext(111));
-            Console.WriteLine(hash.RemoveAndGetNext(5));
-            Console.WriteLine(hash.RemoveAndGetNext(6));
+            Console.WriteLine(hash.Remove(4));
+            Console.WriteLine(hash.Remove(111));
+            Console.WriteLine(hash.Remove(5));
+            Console.WriteLine(hash.Remove(6));
             Console.WriteLine(String.Join(" ", hash));
 
 
