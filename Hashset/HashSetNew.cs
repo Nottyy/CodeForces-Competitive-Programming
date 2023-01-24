@@ -14,17 +14,19 @@ namespace Hashset
         private const double FULL_PERCENTAGE = 0.7;
 
         private SinglyLinkedlist<T>[] buffer;
+        private List<uint> usedIndeces;
         public int Count { get; private set; }
 
         public HashsetNew()
         {
             this.buffer = new SinglyLinkedlist<T>[MIN_BUFFER_LENGTH];
             this.Count = 0;
+            this.usedIndeces = new List<uint>();
         }
         public bool Add(T value)
         {
             var hash = (uint)value.GetHashCode();
-            var index = hash % buffer.Length;
+            var index = (uint)(hash % buffer.Length);
 
             var existed = buffer[index] != null && buffer[index].Contains(value);
 
@@ -36,10 +38,14 @@ namespace Hashset
             //if ((double)this.Count / buffer.Length > FULL_PERCENTAGE)
             //{
             //    this.Resize(buffer.Length * RESIZE_FACTOR);
-            //    index = hash % buffer.Length;
+            //    index = (uint)(hash % buffer.Length);
             //}
 
             this.Count++;
+            if (buffer[index] == null)
+            {
+                usedIndeces.Add(index);
+            }
             buffer[index] = new SinglyLinkedlist<T>(value, buffer[index]);
 
             return true;
@@ -48,7 +54,7 @@ namespace Hashset
         public bool Remove(T value)
         {
             var hash = (uint)value.GetHashCode();
-            var index = hash % buffer.Length;
+            var index = (uint)(hash % buffer.Length);
             bool removed;
 
             if (buffer[index] == null)
@@ -57,10 +63,12 @@ namespace Hashset
             }
 
             buffer[index] = buffer[index].RemoveAndGetNext(value, out removed);
+            
 
             if (removed)
             {
                 this.Count--;
+                usedIndeces.Remove(index);
                 return true;
             }
 
@@ -77,14 +85,9 @@ namespace Hashset
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (var list in buffer)
+            foreach (var y in usedIndeces)
             {
-                if (list == null)
-                {
-                    continue;
-                }
-
-                foreach (var x in list)
+                foreach (var x in buffer[y])
                 {
                     yield return x;
                 }
@@ -99,15 +102,21 @@ namespace Hashset
         private void Resize(int newSize)
         {
             var newBuffer = new SinglyLinkedlist<T>[newSize];
+            var newIndeces = new List<uint>();
 
             foreach (var x in this)
             {
                 var hash = (uint)x.GetHashCode();
-                var index = hash % newSize;
+                var index = (uint)(hash % newSize);
                 newBuffer[index] = new SinglyLinkedlist<T>(x, newBuffer[index]);
+                if (newBuffer[index] == null)
+                {
+                    newIndeces.Add(index);
+                }
             }
 
-            buffer = newBuffer;
+            this.buffer = newBuffer;
+            this.usedIndeces = newIndeces;
         }
     }
 }
