@@ -69,5 +69,20 @@ namespace AvlTrees
         {
             return GetHeight(this.Left) - GetHeight(this.Right);
         }
+
+        public void RotateRight()
+        {
+            this.Rotate(0, 1);
+        }
+
+        public void RotateLeft()
+        {
+            this.Rotate(1, 0);
+        }
+
+        public void Rotate(int left, int right)
+        {
+
+        }
     }
 }
