@@ -8,40 +8,40 @@ namespace AvlTrees
 {
     public class AvlTreeIterator<T> where T : IComparable<T>
     {
-        private AvlNode<T> node;
+        internal AvlNode<T> Node { get; private set; }
 
-        public T Value => node.Value;
+        public T Value => Node.Value;
 
         public AvlTreeIterator(AvlNode<T> node)
         {
-            this.node = node;
+            this.Node = node;
         }
 
         public void Move(int left, int right)
         {
-            if (node.Neighbours[right] != null)
+            if (Node.Neighbours[right] != null)
             {
-                node = node.Neighbours[right];
+                Node = Node.Neighbours[right];
 
-                while (node.Neighbours[left] != null)
+                while (Node.Neighbours[left] != null)
                 {
-                    node = node.Neighbours[left];
+                    Node = Node.Neighbours[left];
                 }
             }
             else
             {
-                while (node.Parent != null && node.Parent.Neighbours[right] == node)
+                while (Node.Parent != null && Node.Parent.Neighbours[right] == Node)
                 {
-                    node = node.Parent;
+                    Node = Node.Parent;
                 }
 
-                if (node.Parent == null)
+                if (Node.Parent == null)
                 {
-                    node = null;
+                    Node = null;
                     return;
                 }
 
-                node = node.Parent;
+                Node = Node.Parent;
             }
         }
 

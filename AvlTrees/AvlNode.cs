@@ -50,9 +50,10 @@ namespace AvlTrees
             }
         }
 
-        public AvlNode()
+        public AvlNode(T value)
         {
             this.Neighbours = new AvlNode<T>[3];
+            this.Value = value;
         }
 
         public static int GetSize(AvlNode<T> node)
