@@ -11,7 +11,7 @@ namespace AvlTrees
         static void Main(string[] args)
         {
             var tree = new AvlTree<int>();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 10; i++)
             {
                 tree.Add(i);
                 Console.WriteLine(String.Join(" ", tree));

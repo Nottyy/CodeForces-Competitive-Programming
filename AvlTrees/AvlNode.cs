@@ -107,7 +107,7 @@ namespace AvlTrees
 
             if (this.Parent != null)
             {
-                this.Parent.Update(val);
+                root = this.Parent.Update(val);
             }
 
             return root;
