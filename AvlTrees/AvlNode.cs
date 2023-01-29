@@ -82,10 +82,10 @@ namespace AvlTrees
             if (curBalance > 1)
             {
                 var bl = this.Left.GetBalance();
-                if (bl > 0)
+                if (bl < 0)
                 {
-                    this.Left.RotateLeft();
-                    this.Right.UpdateSizes(1);
+                    root = this.Left.RotateLeft();
+                    //this.Right.UpdateSizes(1);
                 }
 
                 root = this.RotateLeft();
@@ -95,8 +95,8 @@ namespace AvlTrees
                 var bl = this.Right.GetBalance();
                 if (bl > 0)
                 {
-                    this.Right.RotateRight();
-                    this.Left.UpdateSizes(1);
+                    root = this.Right.RotateRight();
+                    //this.Left.UpdateSizes(1);
                 }
                 root = this.RotateRight();
             }
@@ -105,7 +105,7 @@ namespace AvlTrees
                 root.UpdateSizes(1);
             }
 
-            if (this.Parent != null)
+            if (root.Parent != null)
             {
                 root = this.Parent.Update(val);
             }
@@ -131,7 +131,14 @@ namespace AvlTrees
         public AvlNode<T> Rotate(int left, int right)
         {
             var newRoot = this.Neighbours[left];
+            bool nullNewRoot = false;
 
+            if (newRoot == null)
+            {
+                newRoot = this.Neighbours[right];
+                nullNewRoot = true;
+            }
+            
             if (newRoot.Neighbours[right] != null)
             {
                 newRoot.Neighbours[right].Parent = this;
@@ -153,8 +160,16 @@ namespace AvlTrees
             this.Parent = newRoot;
 
             var st = newRoot.Neighbours[right];
-            newRoot.Neighbours[right] = this;
-            this.Neighbours[left] = st;
+            if (nullNewRoot)
+            {
+                newRoot.Neighbours[left] = this;
+                this.Neighbours[right] = st;
+            }
+            else
+            {
+                newRoot.Neighbours[right] = this;
+                this.Neighbours[left] = st;
+            }
 
             this.UpdateSizes(1);
             newRoot.UpdateSizes(1);

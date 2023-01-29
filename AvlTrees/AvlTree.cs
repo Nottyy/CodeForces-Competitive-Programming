@@ -10,7 +10,7 @@ namespace AvlTrees
     public class AvlTree<T> : IEnumerable<T>
         where T : IComparable<T>
     {
-        private AvlNode<T> root;
+        public AvlNode<T> root;
 
         public int Count => AvlNode<T>.GetSize(this.root);
         public int Height => AvlNode<T>.GetHeight(this.root);
@@ -69,7 +69,7 @@ namespace AvlTrees
                 it.Node.Right = newNode;
                 newNode.Parent = it.Node;
             }
-            newNode.Parent.Update(1);
+            this.root = newNode.Parent.Update(1);
             var newIT = new AvlTreeIterator<T>(newNode);
 
             return new Tuple<AvlTreeIterator<T>, bool>(newIT, true);
