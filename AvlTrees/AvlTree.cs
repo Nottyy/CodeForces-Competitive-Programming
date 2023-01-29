@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,21 +7,49 @@ using System.Threading.Tasks;
 
 namespace AvlTrees
 {
-    public class AvlTree<T> where T : IComparable<T>
+    public class AvlTree<T> : IEnumerable<T>
+        where T : IComparable<T>
     {
         private AvlNode<T> root;
 
         public int Count => AvlNode<T>.GetSize(this.root);
         public int Height => AvlNode<T>.GetHeight(this.root);
 
-        public AvlTree(AvlNode<T> node)
+        public AvlTree()
         {
-            this.root = node;
+            this.root = null;
         }
 
         public Tuple<AvlTreeIterator<T>, bool> Add(T value)
         {
             var it = this.LowerBound(value);
+
+            if (it.Node == null)
+            {
+                if (this.root != null)
+                {
+                    var node = this.root;
+                    while (node.Right != null)
+                    {
+                        node = node.Right;
+                    }
+
+                    node.Right = new AvlNode<T>(value);
+                    node.Right.Parent = node;
+
+                    this.root = node.Update(1);
+
+                    var newNodeIt = new AvlTreeIterator<T>(node.Right);
+                    return new Tuple<AvlTreeIterator<T>, bool>(newNodeIt, true);
+                }
+                else
+                {
+                    this.root = new AvlNode<T>(value);
+                    var newIt = new AvlTreeIterator<T>(this.root);
+
+                    return new Tuple<AvlTreeIterator<T>, bool>(newIt, true);
+                }
+            }
 
             if (it.Node.Value.CompareTo(value) == 0)
             {
@@ -40,7 +69,7 @@ namespace AvlTrees
                 it.Node.Right = newNode;
                 newNode.Parent = it.Node;
             }
-
+            newNode.Parent.Update(1);
             var newIT = new AvlTreeIterator<T>(newNode);
 
             return new Tuple<AvlTreeIterator<T>, bool>(newIT, true);
@@ -74,6 +103,11 @@ namespace AvlTrees
         {
             var node = this.root;
 
+            if (node == null)
+            {
+                return this.End;
+            }
+
             while (true)
             {
                 var cmp = value.CompareTo(node.Value);
@@ -103,6 +137,21 @@ namespace AvlTrees
             }
         }
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            var it = this.Begin;
+
+            while (it.Node != null)
+            {
+                yield return it.Value;
+                it.MoveRight();
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         public AvlTreeIterator<T> Begin
         {
@@ -121,6 +170,14 @@ namespace AvlTrees
                 }
 
                 return new AvlTreeIterator<T>(node);
+            }
+        }
+
+        public AvlTreeIterator<T> End
+        {
+            get
+            {
+                return new AvlTreeIterator<T>(null);
             }
         }
     }

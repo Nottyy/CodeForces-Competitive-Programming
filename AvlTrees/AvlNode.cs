@@ -9,8 +9,8 @@ namespace AvlTrees
 {
     public class AvlNode<T> where T : IComparable<T>
     {
-        private int Size;
-        private int Height;
+        private int size;
+        private int height;
 
         public T Value { get; private set; }
 
@@ -54,16 +54,63 @@ namespace AvlTrees
         {
             this.Neighbours = new AvlNode<T>[3];
             this.Value = value;
+            this.size = 1;
+            this.height = 1;
         }
 
         public static int GetSize(AvlNode<T> node)
         {
-            return node == null ? 0 : node.Size;
+            return node == null ? 0 : node.size;
         }
 
         public static int GetHeight(AvlNode<T> node)
         {
-            return node == null ? 0 : node.Height;
+            return node == null ? 0 : node.height;
+        }
+
+        private void UpdateSizes(int val)
+        {
+            this.size = GetSize(this.Left) + GetSize(this.Right) + val;
+            this.height = Math.Max(GetHeight(this.Left), GetHeight(this.Right)) + val;
+        }
+
+        public AvlNode<T> Update(int val)
+        {
+            var root = this;
+            var curBalance = this.GetBalance();
+
+            if (curBalance > 1)
+            {
+                var bl = this.Left.GetBalance();
+                if (bl > 0)
+                {
+                    this.Left.RotateLeft();
+                    this.Right.UpdateSizes(1);
+                }
+
+                root = this.RotateLeft();
+            }
+            else if (curBalance < -1)
+            {
+                var bl = this.Right.GetBalance();
+                if (bl > 0)
+                {
+                    this.Right.RotateRight();
+                    this.Left.UpdateSizes(1);
+                }
+                root = this.RotateRight();
+            }
+            else
+            {
+                root.UpdateSizes(1);
+            }
+
+            if (this.Parent != null)
+            {
+                this.Parent.Update(val);
+            }
+
+            return root;
         }
 
         public int GetBalance()
@@ -71,19 +118,48 @@ namespace AvlTrees
             return GetHeight(this.Left) - GetHeight(this.Right);
         }
 
-        public void RotateRight()
+        private AvlNode<T> RotateRight()
         {
-            this.Rotate(0, 1);
+            return this.Rotate(1, 0);
         }
 
-        public void RotateLeft()
+        private AvlNode<T> RotateLeft()
         {
-            this.Rotate(1, 0);
+            return this.Rotate(0, 1);
         }
 
-        public void Rotate(int left, int right)
+        public AvlNode<T> Rotate(int left, int right)
         {
+            var newRoot = this.Neighbours[left];
 
+            if (newRoot.Neighbours[right] != null)
+            {
+                newRoot.Neighbours[right].Parent = this;
+            }
+
+            if (this.Parent != null)
+            {
+                if (this.Parent.Left == this)
+                {
+                    this.Parent.Left = newRoot;
+                }
+                else
+                {
+                    this.Parent.Right = newRoot;
+                }
+            }
+
+            newRoot.Parent = this.Parent;
+            this.Parent = newRoot;
+
+            var st = newRoot.Neighbours[right];
+            newRoot.Neighbours[right] = this;
+            this.Neighbours[left] = st;
+
+            this.UpdateSizes(1);
+            newRoot.UpdateSizes(1);
+
+            return newRoot;
         }
     }
 }
