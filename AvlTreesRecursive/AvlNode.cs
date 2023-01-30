@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AvlTreesRecursive
 {
-    internal class AvlNode<T>
+    internal class AvlNode<T> where T : IComparable<T>
     {
         private int size;
 
@@ -47,25 +47,30 @@ namespace AvlTreesRecursive
             this.Children = new AvlNode<T>[2];
         }
 
-        public int GetHeight(AvlNode<T> node)
+        public static int GetHeight(AvlNode<T> node)
         {
             return node == null ? 0 : node.height;
         }
 
-        public int GetSize(AvlNode<T> node)
+        public static int GetSize(AvlNode<T> node)
         {
             return node == null ? 0 : node.size;
         }
 
-        public int Balance(AvlNode<T> node)
+        public static int Balance(AvlNode<T> node)
         {
-            return this.GetHeight(node.Left) - this.GetHeight(node.Right);
+            return GetHeight(node.Left) - GetHeight(node.Right);
         }
 
         public void UpdateSizes()
         {
-            this.size = this.GetSize(this.Left) + this.GetSize(this.Right) + 1;
-            this.height = Math.Max(this.GetHeight(this.Left), this.GetHeight(this.Right)) + 1;
+            this.size = GetSize(this.Left) + GetSize(this.Right) + 1;
+            this.height = Math.Max(GetHeight(this.Left), GetHeight(this.Right)) + 1;
+        }
+
+        public void Update()
+        {
+
         }
 
         public static void Rotate(ref AvlNode<T> node, int left, int right)
@@ -88,6 +93,78 @@ namespace AvlTreesRecursive
         public static void RotateRight(ref AvlNode<T> node)
         {
             Rotate(ref node, 0, 1);
+        }
+
+        public static bool Add(ref AvlNode<T> node, T value)
+        {
+            if (node == null)
+            {
+                node = new AvlNode<T>(value);
+                return true;
+            }
+
+            var cmp = value.CompareTo(node.Value);
+
+            if (cmp < 0)
+            {
+                var child = node.Left;
+                var result = Add(ref child, value);
+                node.Left = child;
+
+                if (result)
+                {
+                    node.UpdateSizes();
+                    node = Update(node);
+                }
+
+                return result;
+            }
+            else if (cmp > 0)
+            {
+                var child = node.Right;
+                var result = Add(ref child, value);
+                node.Right = child;
+
+                if (result)
+                {
+                    node.UpdateSizes();
+                    node = Update(node);
+                }
+
+                return result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static AvlNode<T> Update(AvlNode<T> node)
+        {
+            var balance = Balance(node);
+
+            if (balance > 1)
+            {
+                if (Balance(node.Left) < 0)
+                {
+                    var sub = node.Left;
+                    RotateLeft(ref sub);
+                    node.Left = sub;
+                }
+                RotateRight(ref node);
+            }
+            else if (balance < -1)
+            {
+                if (Balance(node.Right) > 0)
+                {
+                    var sub = node.Right;
+                    RotateRight(ref sub);
+                    node.Right = sub;
+                }
+                RotateLeft(ref node);
+            }
+
+            return node;
         }
     }
 }
