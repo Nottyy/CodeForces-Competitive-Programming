@@ -69,6 +69,7 @@ namespace AvlTrees
                 it.Node.Right = newNode;
                 newNode.Parent = it.Node;
             }
+
             this.root = newNode.Parent.Update(1);
             var newIT = new AvlTreeIterator<T>(newNode);
 

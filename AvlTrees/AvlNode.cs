@@ -163,7 +163,7 @@ namespace AvlTrees
             if (nullNewRoot)
             {
                 newRoot.Neighbours[left] = this;
-                this.Neighbours[right] = st;
+                this.Neighbours[right] = null;
             }
             else
             {

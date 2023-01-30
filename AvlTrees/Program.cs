@@ -18,19 +18,21 @@ namespace AvlTrees
                 Console.WriteLine("Root is " + tree.root.Value);
             }
 
-            Console.WriteLine(tree.Count);
-            Console.WriteLine(tree.Height);
+            //Console.WriteLine(tree.Count);
+            //Console.WriteLine(tree.Height);
 
-            tree = new AvlTree<int>();
-            for (int i = 0; i < 10; i++)
-            {
-                tree.Add(i);
-                Console.WriteLine(String.Join(" ", tree));
-            }
-            //tree.Add(20);
-            //tree.Add(15);
-            //tree.Add(16);
-            //tree.Add(11);
+            //tree = new AvlTree<int>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    tree.Add(i);
+            //    Console.WriteLine(String.Join(" ", tree));
+            //}
+            tree.Add(20);
+            tree.Add(15);
+            tree.Add(16);
+            tree.Add(11);
+            Console.WriteLine(String.Join(" ", tree));
+
             Console.WriteLine(tree.Count);
             Console.WriteLine(tree.Height);
         }
