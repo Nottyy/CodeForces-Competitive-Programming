@@ -11,13 +11,15 @@ namespace AvlTreesRecursive
         static void Main(string[] args)
         {
             var tree = new AvlTree<int>();
-
-            tree.Add(20);
-            tree.Add(15);
-            tree.Add(18);
-            Console.WriteLine(tree.Count);
+            var rnd = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                tree.Add(i);
+            }
+            Console.WriteLine(tree.Count);            
             Console.WriteLine(tree.Height);
-            Console.WriteLine(tree.root.Value);
+
+            Console.WriteLine(String.Join(" ", tree));
         }
     }
 }
