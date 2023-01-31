@@ -27,11 +27,29 @@ namespace AvlTreesRecursive
 
         public IEnumerator<T> GetEnumerator()
         {
-            if (this.root != null)
+            var stack = new Stack<Tuple<AvlNode<T>, bool>>();
+            stack.Push(new Tuple<AvlNode<T>, bool>(this.root, false));
+
+            while (stack.Count > 0)
             {
-                foreach (var x in this.root)
+                var tuple = stack.Pop();
+                var node = tuple.Item1;
+                var isLeftTraversed = tuple.Item2;
+
+                if (node == null)
                 {
-                    yield return x;
+                    continue;
+                }
+
+                if (isLeftTraversed == false)
+                {
+                    stack.Push(new Tuple<AvlNode<T>, bool>(node, true));
+                    stack.Push(new Tuple<AvlNode<T>, bool>(node.Left, false));
+                }
+                else
+                {
+                    yield return node.Value;
+                    stack.Push(new Tuple<AvlNode<T>, bool>(node.Right, false));
                 }
             }
         }

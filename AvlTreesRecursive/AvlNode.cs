@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AvlTreesRecursive
 {
-    internal class AvlNode<T> : IEnumerable<T> where T : IComparable<T>
+    internal class AvlNode<T> where T : IComparable<T>
     {
         private int size;
 
@@ -166,32 +166,6 @@ namespace AvlTreesRecursive
             }
 
             return node;
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            if (this.Left != null)
-            {
-                foreach (var x in this.Left)
-                {
-                    yield return x;
-                }
-            }
-
-            yield return this.Value;
-
-            if (this.Right != null)
-            {
-                foreach (var x in this.Right)
-                {
-                    yield return x;
-                }
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

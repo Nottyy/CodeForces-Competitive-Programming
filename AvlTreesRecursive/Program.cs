@@ -14,12 +14,14 @@ namespace AvlTreesRecursive
             var rnd = new Random();
             for (int i = 0; i < 10; i++)
             {
-                tree.Add(i);
+                tree.Add(rnd.Next(100));
             }
-            Console.WriteLine(tree.Count);            
-            Console.WriteLine(tree.Height);
+            
 
             Console.WriteLine(String.Join(" ", tree));
+
+            Console.WriteLine(tree.Count);
+            Console.WriteLine(tree.Height);
         }
     }
 }
