@@ -140,6 +140,48 @@ namespace AvlTreesRecursive
             }
         }
 
+        public static int IndexOf(AvlNode<T> node, T value)
+        {
+            if (node == null)
+            {
+                return -1;
+            }
+            var cmp = value.CompareTo(node.Value);
+
+            if (cmp < 0)
+            {
+                return IndexOf(node.Left, value);
+            }
+            if (cmp > 0)
+            {
+                var size = GetSize(node.Left) + 1;
+                return IndexOf(node.Right, value) + size;
+            }
+
+            return GetSize(node.Left);
+        }
+
+        public static T GetValueAtIndex(AvlNode<T> node, int index)
+        {
+            if (node == null)
+            {
+                throw new ArgumentException("No such value at index!");
+            }
+
+            var cmp = index.CompareTo(GetSize(node.Left));
+
+            if (cmp < 0)
+            {
+                return GetValueAtIndex(node.Left, index);
+            }
+            if (cmp > 0)
+            {
+                return GetValueAtIndex(node.Right, index - GetSize(node.Left) - 1);
+            }
+
+            return node.Value;
+        }
+
         private static AvlNode<T> Update(AvlNode<T> node)
         {
             var balance = Balance(node);

@@ -25,6 +25,16 @@ namespace AvlTreesRecursive
             return AvlNode<T>.Add(ref this.root, value);
         }
 
+        public int IndexOf(T value)
+        {
+            return AvlNode<T>.IndexOf(this.root, value);
+        }
+
+        public T GetValueAtIndex(int index)
+        {
+            return AvlNode<T>.GetValueAtIndex(this.root, index);
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             var stack = new Stack<Tuple<AvlNode<T>, bool>>();

@@ -14,9 +14,9 @@ namespace AvlTreesRecursive
             var rnd = new Random();
             for (int i = 0; i < 10; i++)
             {
-                tree.Add(rnd.Next(100));
+                tree.Add(i);
             }
-            
+            Console.WriteLine(tree.GetValueAtIndex(2));
 
             Console.WriteLine(String.Join(" ", tree));
 
