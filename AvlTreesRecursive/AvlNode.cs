@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AvlTreesRecursive
 {
@@ -69,11 +72,6 @@ namespace AvlTreesRecursive
             this.height = Math.Max(GetHeight(this.Left), GetHeight(this.Right)) + 1;
         }
 
-        public void Update()
-        {
-
-        }
-
         public static void Rotate(ref AvlNode<T> node, int left, int right)
         {
             var newRoot = node.Children[left];
@@ -96,6 +94,77 @@ namespace AvlTreesRecursive
             Rotate(ref node, 0, 1);
         }
 
+        private static AvlNode<T> InOrderTraversal(AvlNode<T> root, int left, int right)
+        {
+            if (root.Children[left] != null)
+            {
+                root = root.Children[left];
+
+                while (root.Children[right] != null)
+                {
+                    root = root.Children[right];
+                    if (root.Children[right] == null)
+                    {
+                        break;
+                    }
+                }
+
+                return root;
+            }
+            else
+            {
+                return root;
+            }
+        }
+
+        public static bool Remove(ref AvlNode<T> node, T value)
+        {
+            if (node == null)
+            {
+                return false;
+            }
+
+            var cmp = value.CompareTo(node.Value);
+
+            if (cmp < 0)
+            {
+                var child = node.Left;
+                var result = Remove(ref child, value);
+                node.Left = child;
+
+                if (result)
+                {
+                    var root = InOrderTraversal(node.Left, 0, 1);
+
+                    root.Right = node.Left.Right;
+                    root.Left = node.Left.Left;
+                    node.Left = root;
+                }
+
+                return result;
+            }
+            else if (cmp > 0)
+            {
+                var child = node.Right;
+                var result = Remove(ref child, value);
+                node.Right = child;
+
+                if (result)
+                {
+                    var root = InOrderTraversal(node.Right, 1, 0);
+
+                    root.Right = node.Left.Right;
+                    root.Left = node.Left.Left;
+                    node.Left = root;
+                }
+
+                return result;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public static bool Add(ref AvlNode<T> node, T value)
         {
             if (node == null)
@@ -165,7 +234,7 @@ namespace AvlTreesRecursive
         {
             if (node == null)
             {
-                throw new ArgumentException("No such value at index!");
+                throw new ArgumentException("No such value!");
             }
 
             var cmp = index.CompareTo(GetSize(node.Left));
@@ -208,6 +277,31 @@ namespace AvlTreesRecursive
             }
 
             return node;
+        }
+
+        public static AvlNode<T> FindNode(AvlNode<T> root, T value)
+        {
+            while (true)
+            {
+                if (root == null)
+                {
+                    return null;
+                }
+                var cmp = value.CompareTo(root.Value);
+
+                if (cmp < 0)
+                {
+                    root = root.Left;
+                }
+                else if (cmp > 0)
+                {
+                    root = root.Right;
+                }
+                else
+                {
+                    return root;
+                }
+            }
         }
     }
 }

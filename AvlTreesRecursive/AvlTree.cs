@@ -25,6 +25,11 @@ namespace AvlTreesRecursive
             return AvlNode<T>.Add(ref this.root, value);
         }
 
+        public bool Remove(T value)
+        {
+            return AvlNode<T>.Remove(ref this.root, value);
+        }
+
         public int IndexOf(T value)
         {
             return AvlNode<T>.IndexOf(this.root, value);
