@@ -10,7 +10,7 @@ namespace AvlTreesRecursive
 {
     internal class AvlTree<T> : IEnumerable<T> where T: IComparable<T>
     {
-        private AvlNode<T> root;
+        public AvlNode<T> root;
 
         public int Count => AvlNode<T>.GetSize(this.root);
         public int Height => AvlNode<T>.GetHeight(this.root);

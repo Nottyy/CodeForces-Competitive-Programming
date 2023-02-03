@@ -94,27 +94,59 @@ namespace AvlTreesRecursive
             Rotate(ref node, 0, 1);
         }
 
-        private static AvlNode<T> InOrderTraversal(AvlNode<T> root, int left, int right)
+        private static AvlNode<T> InOrderTraversal(ref AvlNode<T> oldRoot, int left, int right)
         {
-            if (root.Children[left] != null)
+            var node = oldRoot;
+            if (node.Children[left] != null)
             {
-                root = root.Children[left];
+                node = node.Children[left];
 
-                while (root.Children[right] != null)
+                while (node.Children[right] != null)
                 {
-                    root = root.Children[right];
-                    if (root.Children[right] == null)
+                    var tmp = node;
+                    tmp = tmp.Children[right];
+                    if (tmp.Children[right] == null)
                     {
-                        break;
+                        var toReturn = tmp;
+                        node.Children[right] = tmp.Children[left];
+                        node.UpdateSizes();
+
+                        node = NewMethod(ref oldRoot, toReturn, 0, 1);
+
+                        return toReturn;
                     }
                 }
+                oldRoot = node;
+                oldRoot.UpdateSizes();
 
-                return root;
+                return oldRoot;
             }
             else
             {
-                return root;
+                oldRoot = oldRoot.Right;
+                if (oldRoot!= null)
+                {
+                    oldRoot.UpdateSizes();
+                }
+
+                return oldRoot;
             }
+        }
+
+        private static AvlNode<T> RemoveRightmostChild(ref AvlNode<T> node)
+        {
+            if (node.Right == null)
+            {
+                var toReturn = node;
+                node = node.Left;
+                return toReturn;
+            }
+
+            var child = node.Right;
+            var result = RemoveRightmostChild(ref child);
+
+            node.Right = child;
+            return result;
         }
 
         public static bool Remove(ref AvlNode<T> node, T value)
@@ -130,15 +162,11 @@ namespace AvlTreesRecursive
             {
                 var child = node.Left;
                 var result = Remove(ref child, value);
-                node.Left = child;
 
                 if (result)
                 {
-                    var root = InOrderTraversal(node.Left, 0, 1);
-
-                    root.Right = node.Left.Right;
-                    root.Left = node.Left.Left;
-                    node.Left = root;
+                    node.Left = child;
+                    BalanceIfLeftIsHeavy(ref node);
                 }
 
                 return result;
@@ -147,24 +175,43 @@ namespace AvlTreesRecursive
             {
                 var child = node.Right;
                 var result = Remove(ref child, value);
-                node.Right = child;
 
                 if (result)
                 {
-                    var root = InOrderTraversal(node.Right, 1, 0);
-
-                    root.Right = node.Left.Right;
-                    root.Left = node.Left.Left;
-                    node.Left = root;
+                    node.Right = child;
+                    BalanceIfRightIsHeavy(ref node);
                 }
 
                 return result;
             }
             else
             {
+                var tmp = node;
+                var leftMost = InOrderTraversal(ref tmp, 0, 1);
+                node = tmp;
+
                 return true;
             }
         }
+
+        private static AvlNode<T> NewMethod(ref AvlNode<T> node, AvlNode<T> leftMost,int left, int right)
+        {
+            if (leftMost != null)
+            {
+                leftMost.Children[left] = node.Children[left];
+                leftMost.Children[right] = node.Children[right];
+                leftMost.UpdateSizes();
+
+                node = leftMost;
+            }
+            else
+            {
+                node = node.Right;
+            }
+
+            return node;
+        }
+
         public static bool Add(ref AvlNode<T> node, T value)
         {
             if (node == null)
@@ -179,12 +226,12 @@ namespace AvlTreesRecursive
             {
                 var child = node.Left;
                 var result = Add(ref child, value);
-                node.Left = child;
 
                 if (result)
                 {
-                    node.UpdateSizes();
-                    node = Update(node);
+                    node.Left = child;
+
+                    BalanceIfLeftIsHeavy(ref node);
                 }
 
                 return result;
@@ -193,12 +240,12 @@ namespace AvlTreesRecursive
             {
                 var child = node.Right;
                 var result = Add(ref child, value);
-                node.Right = child;
 
                 if (result)
                 {
-                    node.UpdateSizes();
-                    node = Update(node);
+                    node.Right = child;
+
+                    BalanceIfRightIsHeavy(ref node);
                 }
 
                 return result;
@@ -207,6 +254,18 @@ namespace AvlTreesRecursive
             {
                 return false;
             }
+        }
+
+        private static void BalanceIfRightIsHeavy(ref AvlNode<T> node)
+        {
+            node.UpdateSizes();
+            node = Update(node);
+        }
+
+        private static void BalanceIfLeftIsHeavy(ref AvlNode<T> node)
+        {
+            node.UpdateSizes();
+            node = Update(node);
         }
 
         public static int IndexOf(AvlNode<T> node, T value)
