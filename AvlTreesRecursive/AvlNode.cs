@@ -94,7 +94,7 @@ namespace AvlTreesRecursive
             Rotate(ref node, 0, 1);
         }
 
-        private static AvlNode<T> InOrderTraversal(ref AvlNode<T> oldRoot, int left, int right)
+        private static void InOrderTraversalAndRemove(ref AvlNode<T> oldRoot, int left, int right)
         {
             var node = oldRoot;
             if (node.Children[left] != null)
@@ -111,15 +111,13 @@ namespace AvlTreesRecursive
                         node.Children[right] = tmp.Children[left];
                         node.UpdateSizes();
 
-                        node = NewMethod(ref oldRoot, toReturn, 0, 1);
-
-                        return toReturn;
+                        SwapLeftOrRightMostElements(ref oldRoot, toReturn, 0, 1);
+                        return;
                     }
                 }
+
                 oldRoot = node;
                 oldRoot.UpdateSizes();
-
-                return oldRoot;
             }
             else
             {
@@ -128,8 +126,6 @@ namespace AvlTreesRecursive
                 {
                     oldRoot.UpdateSizes();
                 }
-
-                return oldRoot;
             }
         }
 
@@ -187,14 +183,14 @@ namespace AvlTreesRecursive
             else
             {
                 var tmp = node;
-                var leftMost = InOrderTraversal(ref tmp, 0, 1);
+                InOrderTraversalAndRemove(ref tmp, 0, 1);
                 node = tmp;
 
                 return true;
             }
         }
 
-        private static AvlNode<T> NewMethod(ref AvlNode<T> node, AvlNode<T> leftMost,int left, int right)
+        private static void SwapLeftOrRightMostElements(ref AvlNode<T> node, AvlNode<T> leftMost,int left, int right)
         {
             if (leftMost != null)
             {
@@ -208,8 +204,6 @@ namespace AvlTreesRecursive
             {
                 node = node.Right;
             }
-
-            return node;
         }
 
         public static bool Add(ref AvlNode<T> node, T value)
