@@ -39,14 +39,15 @@ namespace Trees___BFS_and_DFS
                 var element = stack.Pop();
                 sb.Append(element.Value + " ");
 
-                if (element.Left != null)
-                {
-                    stack.Push(element.Left);
-                }
                 if (element.Right != null)
                 {
                     stack.Push(element.Right);
                 }
+                if (element.Left != null)
+                {
+                    stack.Push(element.Left);
+                }
+                
             }
 
             Console.WriteLine(sb);
@@ -64,14 +65,15 @@ namespace Trees___BFS_and_DFS
                 var element = queue.Dequeue();
                 sb.Append(element.Value + " ");
 
-                if (element.Left != null)
-                {
-                    queue.Enqueue(element.Left);
-                }
                 if (element.Right != null)
                 {
                     queue.Enqueue(element.Right);
                 }
+                if (element.Left != null)
+                {
+                    queue.Enqueue(element.Left);
+                }
+                
             }
 
             Console.WriteLine(sb);
