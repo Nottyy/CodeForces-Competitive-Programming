@@ -30,7 +30,7 @@ namespace Trees
             tree5.Left = new Tree<int>(22);
             tree5.Right = new Tree<int>(28);
 
-            DFS(tree1);
+            DFS(tree2);
         }
 
         static void DFS<T>(Tree<T> tree)
