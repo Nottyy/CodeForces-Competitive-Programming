@@ -25,9 +25,17 @@ namespace BinaryHeap
             for (int i = 0; i < arr.Length; i++)
             {
                 heap.Add(arr[i]);
-                Console.Write(heap.Top + " ");
+                //Console.Write(heap.Top + " ");
             }
 
+            Console.WriteLine($"Arr top is {heap.Top}");
+
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                heap.RemoveTop();
+                //Console.WriteLine(String.Join(" ", arr));
+                Console.WriteLine($" {i} - Arr top is {heap.Top}");
+            }
         }
     }
 }

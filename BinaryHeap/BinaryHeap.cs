@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BinaryHeap
@@ -42,6 +43,36 @@ namespace BinaryHeap
 
                 ind = parentIndex;
                 parentIndex /= 2;
+            }
+        }
+
+        public void RemoveTop()
+        {
+            var currentIndex = 1;
+            int smallerChildIndex = 1;
+
+            this.heap[currentIndex] = this.heap[this.heap.Count - 1];
+            this.heap.RemoveAt(this.heap.Count - 1);
+
+            var value = this.heap[currentIndex];
+
+            while (currentIndex * 2 + 1 < this.heap.Count)
+            {
+                smallerChildIndex = this.func(this.heap[currentIndex * 2], this.heap[currentIndex * 2 + 1]) ?
+                    currentIndex * 2 : currentIndex * 2 + 1;
+
+                if (this.func(this.heap[smallerChildIndex], value))
+                {
+                    var tmp = this.heap[currentIndex];
+                    this.heap[currentIndex] = this.heap[smallerChildIndex];
+                    this.heap[smallerChildIndex] = tmp;
+
+                    currentIndex = smallerChildIndex;
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }
