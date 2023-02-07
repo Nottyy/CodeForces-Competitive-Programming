@@ -17,30 +17,23 @@ namespace BinaryHeap
             {
                 arr[i] = rnd.Next(100);
             }
-
-            //Console.WriteLine(" ---- " + String.Join(" ", arr));
+            Console.WriteLine(String.Join(" ", arr));
+            Console.WriteLine();
 
             var heap = new BinaryHeap<int>((a, b) => a < b);
 
             for (int i = 0; i < arr.Length; i++)
             {
                 heap.Add(arr[i]);
-                //Console.Write(heap.Top + " ");
             }
-            Console.WriteLine(" ---- " + String.Join(" ", arr));
-
 
             for (int i = 0; i < arr.Length; i++)
             {
-                Console.WriteLine();
                 arr[i] = heap.RemoveTop();
                 Console.WriteLine("Before -> " + String.Join(" ", heap.heap));
-                
-                //heap.RemoveTop();
-                //Console.WriteLine("After -> " + String.Join(" ", heap.heap));
             }
-
-            Console.WriteLine(" ---- " + String.Join(" ", arr));
+            Console.WriteLine();
+            Console.WriteLine(String.Join(" ", arr));
 
         }
     }
