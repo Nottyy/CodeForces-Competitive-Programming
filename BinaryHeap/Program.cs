@@ -18,7 +18,7 @@ namespace BinaryHeap
                 arr[i] = rnd.Next(100);
             }
 
-            Console.WriteLine(String.Join(" ", arr));
+            //Console.WriteLine(" ---- " + String.Join(" ", arr));
 
             var heap = new BinaryHeap<int>((a, b) => a < b);
 
@@ -28,13 +28,14 @@ namespace BinaryHeap
                 //Console.Write(heap.Top + " ");
             }
 
-            Console.WriteLine($"Arr top is {heap.Top}");
 
             for (int i = 0; i < arr.Length - 1; i++)
             {
+                Console.WriteLine(String.Join(" ", heap.heap));
+                Console.WriteLine($"Arr top before {heap.Top}");
+
                 heap.RemoveTop();
-                //Console.WriteLine(String.Join(" ", arr));
-                Console.WriteLine($" {i} - Arr top is {heap.Top}");
+                Console.WriteLine($"Arr top after {heap.Top}");
             }
         }
     }

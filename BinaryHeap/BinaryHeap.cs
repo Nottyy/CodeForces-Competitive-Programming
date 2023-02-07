@@ -9,7 +9,7 @@ namespace BinaryHeap
 {
     public class BinaryHeap<T> where T : IComparable<T>
     {
-        private List<T> heap;
+        public List<T> heap;
         private Func<T, T, bool> func;
 
         public T Top => heap[1];
@@ -49,16 +49,20 @@ namespace BinaryHeap
         public void RemoveTop()
         {
             var currentIndex = 1;
-            int smallerChildIndex = 1;
+            var value = this.heap[this.heap.Count - 1];
 
-            this.heap[currentIndex] = this.heap[this.heap.Count - 1];
+            this.heap[currentIndex] = value;
             this.heap.RemoveAt(this.heap.Count - 1);
 
-            var value = this.heap[currentIndex];
 
+            this.HeapifyDown(currentIndex, value);
+        }
+
+        private void HeapifyDown(int currentIndex, T value)
+        {
             while (currentIndex * 2 + 1 < this.heap.Count)
             {
-                smallerChildIndex = this.func(this.heap[currentIndex * 2], this.heap[currentIndex * 2 + 1]) ?
+                var smallerChildIndex = this.func(this.heap[currentIndex * 2], this.heap[currentIndex * 2 + 1]) ?
                     currentIndex * 2 : currentIndex * 2 + 1;
 
                 if (this.func(this.heap[smallerChildIndex], value))
