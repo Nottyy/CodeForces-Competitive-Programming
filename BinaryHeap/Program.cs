@@ -10,7 +10,7 @@ namespace BinaryHeap
     {
         static void Main(string[] args)
         {
-            var arr = new int[18];
+            var arr = new int[8];
             var rnd = new Random();
 
             for (int i = 0; i < arr.Length; i++)
@@ -27,16 +27,21 @@ namespace BinaryHeap
                 heap.Add(arr[i]);
                 //Console.Write(heap.Top + " ");
             }
+            Console.WriteLine(" ---- " + String.Join(" ", arr));
 
 
-            for (int i = 0; i < arr.Length - 1; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                Console.WriteLine(String.Join(" ", heap.heap));
-                Console.WriteLine($"Arr top before {heap.Top}");
-
-                heap.RemoveTop();
-                Console.WriteLine($"Arr top after {heap.Top}");
+                Console.WriteLine();
+                arr[i] = heap.RemoveTop();
+                Console.WriteLine("Before -> " + String.Join(" ", heap.heap));
+                
+                //heap.RemoveTop();
+                //Console.WriteLine("After -> " + String.Join(" ", heap.heap));
             }
+
+            Console.WriteLine(" ---- " + String.Join(" ", arr));
+
         }
     }
 }

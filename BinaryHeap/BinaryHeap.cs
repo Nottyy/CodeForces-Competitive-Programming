@@ -46,16 +46,32 @@ namespace BinaryHeap
             }
         }
 
-        public void RemoveTop()
+        public T RemoveTop()
         {
             var currentIndex = 1;
-            var value = this.heap[this.heap.Count - 1];
+            T value = default;
+
+            if (this.Count == 2)
+            {
+                var ifFirstIsSmaller = this.func(this.heap[this.Count - 1], this.heap[this.Count]);
+
+                if (!ifFirstIsSmaller)
+                {
+                    var tmp = this.heap[this.Count - 1];
+                    this.heap[this.Count - 1] = this.heap[this.Count];
+                    this.heap[this.Count] = tmp;
+                }
+            }
+            var curTop = this.Top;
+
+            value = this.heap[this.heap.Count - 1];
 
             this.heap[currentIndex] = value;
             this.heap.RemoveAt(this.heap.Count - 1);
 
-
             this.HeapifyDown(currentIndex, value);
+
+            return curTop;
         }
 
         private void HeapifyDown(int currentIndex, T value)
