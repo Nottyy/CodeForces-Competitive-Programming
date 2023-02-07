@@ -8,6 +8,10 @@ namespace BinaryHeap
 {
     internal class Program
     {
+        static int SumDigits(int x)
+        {
+            return x / 10 + x % 10;
+        }
         static void Main(string[] args)
         {
             var arr = new int[8];
@@ -15,12 +19,12 @@ namespace BinaryHeap
 
             for (int i = 0; i < arr.Length; i++)
             {
-                arr[i] = rnd.Next(100);
+                arr[i] = rnd.Next(99);
             }
             Console.WriteLine(String.Join(" ", arr));
             Console.WriteLine();
 
-            var heap = new BinaryHeap<int>((a, b) => a < b);
+            var heap = new BinaryHeap<int>((a, b) => SumDigits(a) < SumDigits(b));
 
             for (int i = 0; i < arr.Length; i++)
             {
