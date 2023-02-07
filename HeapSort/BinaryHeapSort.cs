@@ -17,7 +17,6 @@ namespace HeapSort
 
             Console.WriteLine("After heapify - " + String.Join(" ", array));
 
-            
             for (int i = array.Length - 1; i >= 0; i--)
             {
                 var lastValue = array[i];
@@ -29,10 +28,8 @@ namespace HeapSort
                 array[i] = minElement;
             }
 
-            Console.WriteLine("Sorted array - " + String.Join(" ", array.Reverse()));
-
+            Console.WriteLine("After sorting - " + String.Join(" ", array.Reverse()));
         }
-
 
         private static void HeapifyDown<T>(this T[] array, Func<T, T, bool> cmfFunc, int currentIndex, T value, int length)
         {
