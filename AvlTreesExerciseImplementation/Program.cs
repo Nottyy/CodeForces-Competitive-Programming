@@ -29,10 +29,26 @@ namespace AvlTreesExerciseImplementation
             var rnd = new Random();
             for (int i = 0; i < 20; i++)
             {
-                tree.Add(rnd.Next(20));
+                tree.Add(i);
             }
 
             Console.WriteLine(String.Join(" ", tree));
+            Console.WriteLine(tree.root.size);
+
+            tree.Remove(3);
+
+            Console.WriteLine(String.Join(" ", tree));
+            Console.WriteLine(tree.root.size);
+
+            tree.Remove(3);
+
+            Console.WriteLine(String.Join(" ", tree));
+            Console.WriteLine(tree.root.size);
+
+            tree.Remove(1);
+
+            Console.WriteLine(String.Join(" ", tree));
+            Console.WriteLine(tree.root.size);
         }
     }
 }

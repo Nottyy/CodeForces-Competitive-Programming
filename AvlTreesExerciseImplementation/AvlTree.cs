@@ -11,7 +11,7 @@ namespace AvlTreesExerciseImplementation
 {
     public class AvlTree<T> : IEnumerable<T> where T : IComparable<T>
     {
-        private AvlNode<T> root;
+        public AvlNode<T> root;
 
         public AvlTree()
         {
@@ -21,6 +21,11 @@ namespace AvlTreesExerciseImplementation
         public bool Add(T value)
         {
             return AvlNode<T>.Add(ref this.root, value);
+        }
+
+        public bool Remove(T value)
+        {
+            return AvlNode<T>.Remove(ref this.root, value);
         }
         public IEnumerator<T> GetEnumerator()
         {
@@ -46,7 +51,7 @@ namespace AvlTreesExerciseImplementation
                 {
                     yield return node.Value;
 
-                    Console.WriteLine(node.Balance);
+                    //Console.WriteLine(node.Balance);
                     if (node.Right != null)
                     {
                         stack.Push(new Tuple<AvlNode<T>, bool>(node.Right, false));
