@@ -92,6 +92,12 @@ namespace AvlTreesExerciseImplementation
 
                     if (node.Balance > 1)
                     {
+                        if (node.Left.Balance < 0)
+                        {
+                            child = node.Left;
+                            AvlNode<T>.RotateLeft(ref child);
+                            node.Left = child;
+                        }
                         AvlNode<T>.RotateRight(ref node);
                     }
                 }
@@ -116,10 +122,16 @@ namespace AvlTreesExerciseImplementation
                     node.Right = child;
                     node.UpdateSizes();
 
-                    //if (node.Balance < -1)
-                    //{
-                    //    AvlNode<T>.RotateRight(ref node);
-                    //}
+                    if (node.Balance < -1)
+                    {
+                        if (node.Right.Balance > 0)
+                        {
+                            child = node.Right;
+                            AvlNode<T>.RotateRight(ref child);
+                            node.Right = child;
+                        }
+                        AvlNode<T>.RotateLeft(ref node);
+                    }
                 }
 
                 return result;
@@ -130,33 +142,35 @@ namespace AvlTreesExerciseImplementation
             }
         }
 
-        private static void RotateRight(ref AvlNode<T> node)
+        private static void Rotate(ref AvlNode<T> node, int left, int right)
         {
-            //var newRoot = TraverseRight(node.Left);
-            //var tmp = newRoot.Left;
-            //node.Left.Right = tmp;
-            //newRoot.Right = node;
-            //newRoot.Left = node.Left;
-
-            //node = newRoot;
-
-            var newRoot = node.Left;
-            node.Left = newRoot.Right;
-            newRoot.Right = node;
+            var newRoot = node.Children[left];
+            node.Children[left] = newRoot.Children[right];
+            newRoot.Children[right] = node;
             node.UpdateSizes();
             newRoot.UpdateSizes();
 
             node = newRoot;
         }
 
-        private static AvlNode<T> TraverseRight(AvlNode<T> node)
+        private static void RotateRight(ref AvlNode<T> node)
         {
-            while (node.Right != null)
-            {
-                node = node.Right;
-            }
-
-            return node;
+            Rotate(ref node, 0, 1);
         }
+
+        private static void RotateLeft(ref AvlNode<T> node)
+        {
+            Rotate(ref node, 1, 0);
+        }
+
+        //private static AvlNode<T> Traverse(AvlNode<T> node, int direction)
+        //{
+        //    while (node.Children[direction] != null)
+        //    {
+        //        node = node.Children[direction];
+        //    }
+
+        //    return node;
+        //}
     }
 }

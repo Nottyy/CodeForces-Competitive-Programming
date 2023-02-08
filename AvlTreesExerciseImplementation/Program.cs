@@ -10,20 +10,29 @@ namespace AvlTreesExerciseImplementation
     {
         static void Main(string[] args)
         {
-            var root = new AvlNode<int>(15);
+            //var root = new AvlNode<int>(15);
+            //var rnd = new Random();
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    //AvlNode<int>.Add(ref root, rnd.Next(200));
+
+            //    AvlNode<int>.Add(ref root, 10);
+            //    AvlNode<int>.Add(ref root, 25);
+            //    AvlNode<int>.Add(ref root, 5);
+            //    AvlNode<int>.Add(ref root, 4);
+            //}
+
+            //var s = 5;
+
+            var tree = new AvlTree<int>();
             var rnd = new Random();
-
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                //AvlNode<int>.Add(ref root, rnd.Next(200));
-
-                AvlNode<int>.Add(ref root, 10);
-                AvlNode<int>.Add(ref root, 25);
-                AvlNode<int>.Add(ref root, 5);
-                AvlNode<int>.Add(ref root, 4);
+                tree.Add(rnd.Next(20));
             }
 
-            var s = 5;
+            Console.WriteLine(String.Join(" ", tree));
         }
     }
 }
