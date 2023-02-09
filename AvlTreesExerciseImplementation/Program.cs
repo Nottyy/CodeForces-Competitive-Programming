@@ -35,7 +35,7 @@ namespace AvlTreesExerciseImplementation
             Console.WriteLine(String.Join(" ", tree));
             Console.WriteLine(tree.root.size);
 
-            tree.Remove(3);
+            tree.Remove(0);
 
             Console.WriteLine(String.Join(" ", tree));
             Console.WriteLine(tree.root.size);
@@ -46,6 +46,11 @@ namespace AvlTreesExerciseImplementation
             Console.WriteLine(tree.root.size);
 
             tree.Remove(1);
+
+            Console.WriteLine(String.Join(" ", tree));
+            Console.WriteLine(tree.root.size);
+
+            tree.Remove(19);
 
             Console.WriteLine(String.Join(" ", tree));
             Console.WriteLine(tree.root.size);
