@@ -193,7 +193,8 @@ namespace AvlTreesExerciseImplementation
             {
                 if (node.Left.IsLeaf )
                 {
-                    return false; // check
+                    node = node.Left;
+                    return true;
                 }
 
                 if (node.Left == null)
