@@ -24,14 +24,15 @@ namespace HeapSort
 
                 array[0] = lastValue;
 
-                HeapifyDown(array, cmfFunc, 0, lastValue, i);
+                array.HeapifyDown(cmfFunc, 0, lastValue, i);
                 array[i] = minElement;
             }
 
-            Console.WriteLine("After sorting - " + String.Join(" ", array.Reverse()));
+            Console.WriteLine("After sorting - " + String.Join(" ", array));
         }
 
-        private static void HeapifyDown<T>(this T[] array, Func<T, T, bool> cmfFunc, int currentIndex, T value, int length)
+        private static void HeapifyDown<T>(this T[] array, Func<T, T, bool> cmfFunc, 
+            int currentIndex, T value, int length)
         {
             while (currentIndex * 2 + 1 < length)
             {
