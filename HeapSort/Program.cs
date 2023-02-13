@@ -17,8 +17,8 @@ namespace HeapSort
             {
                 arr[i] = rnd.Next(50);
             }
-
-            BinaryHeapSort.HeapSort(arr, (a, b) => a > b);
+            Console.WriteLine("Initial -> " + String.Join(" ", arr));
+            BinaryHeapSort.HeapSort(arr, (a, b) => a < b);
         }
     }
 }
