@@ -41,6 +41,21 @@ namespace UnionFind
             return FindParentRecursive(arr[x]);
         }
 
+        public bool Union(int x, int y)
+        {
+            var parentX = this.FindParentIterative(x);
+            var parentY = this.FindParentIterative(y);
+
+            if (parentX == parentY)
+            {
+                return false;
+            }
+
+            this.arr[parentY] = parentX;
+
+            return true;
+        }
+
         public int this[int index]
         {
             get

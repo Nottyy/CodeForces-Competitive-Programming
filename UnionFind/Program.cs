@@ -20,6 +20,15 @@ namespace UnionFind
                 var parent = uf.FindParentRecursive(i);
                 Console.WriteLine($"Parent of '{i}' is -> " + (parent == i ? "No parent" : parent.ToString()));
             }
+
+            Console.WriteLine(uf.Union(3, 1));
+            Console.WriteLine();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var parent = uf.FindParentRecursive(i);
+                Console.WriteLine($"Parent of '{i}' is -> " + (parent == i ? "No parent" : parent.ToString()));
+            }
         }
     }
 }
