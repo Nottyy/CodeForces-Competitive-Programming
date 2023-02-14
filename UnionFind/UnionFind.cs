@@ -68,5 +68,10 @@ namespace UnionFind
                 this.arr[index] = value;
             }
         }
+
+        public void Print()
+        {
+            Console.WriteLine(String.Join(" ", this.arr));
+        }
     }
 }

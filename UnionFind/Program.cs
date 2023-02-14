@@ -11,24 +11,28 @@ namespace UnionFind
         static void Main(string[] args)
         {
             var uf = new UnionFind(10);
-            uf[1] = 2;
-            uf[3] = 4;
-            uf[4] = 5;
 
-            for (int i = 0; i < 10; i++)
+            while (true)
             {
-                var parent = uf.FindParentRecursive(i);
-                Console.WriteLine($"Parent of '{i}' is -> " + (parent == i ? "No parent" : parent.ToString()));
+                uf.Print();
+
+                var strs = Console.ReadLine().Split(' ').ToArray();
+
+                if (strs[0] == "u")
+                {
+                    var first = int.Parse(strs[1]);
+                    var second = int.Parse(strs[2]);
+
+                    uf.Union(first, second);
+                }
+                else if (strs[0] == "f")
+                {
+                    var first = int.Parse(strs[1]);
+
+                    Console.WriteLine(uf.FindParentRecursive(first));
+                }
             }
 
-            Console.WriteLine(uf.Union(3, 1));
-            Console.WriteLine();
-
-            for (int i = 0; i < 10; i++)
-            {
-                var parent = uf.FindParentRecursive(i);
-                Console.WriteLine($"Parent of '{i}' is -> " + (parent == i ? "No parent" : parent.ToString()));
-            }
         }
     }
 }
