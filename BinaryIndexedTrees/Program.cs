@@ -11,6 +11,9 @@ namespace BinaryIndexedTrees
         static void Main(string[] args)
         {
             var func = new Func<int, int, int>((a, b) => a + b);
+
+            //var tree = new BinaryIndexedTree<int>(new int[] { 1, 2, 3, 4, 5 }, func);
+            //Console.WriteLine(String.Join(" ", tree.tree));
             var tree = new BinaryIndexedTree<int>(5, func);
 
             while (true)

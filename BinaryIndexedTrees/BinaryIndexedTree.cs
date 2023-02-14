@@ -36,7 +36,11 @@ namespace BinaryIndexedTrees
                 this.tree[index] = x;
                 index++;
             }
-            var w = 5;
+
+            for (int i = this.realN - 1; i > 1; i--)
+            {
+                this.Update(i);
+            }
 
             for (int i = this.realN; i < this.realN + initial.Count; i++)
             {
