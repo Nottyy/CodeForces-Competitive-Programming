@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphWithAdjacencyNeighbours", "GraphWithAdjacencyNeighbours.csproj", "{9A36C007-A5D4-42CC-A0FB-8729960D9B39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A36C007-A5D4-42CC-A0FB-8729960D9B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A36C007-A5D4-42CC-A0FB-8729960D9B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A36C007-A5D4-42CC-A0FB-8729960D9B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A36C007-A5D4-42CC-A0FB-8729960D9B39}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F179573C-1572-44F6-8167-F5C5611CFBBB}
+	EndGlobalSection
+EndGlobal
