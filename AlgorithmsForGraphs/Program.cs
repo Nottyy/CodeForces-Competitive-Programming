@@ -31,7 +31,7 @@ namespace AlgorithmsForGraphs
 
         private static void PrintPathWithBFS(LinkedList<int>[] vertices)
         {
-            var vertex = 2;
+            var vertex = 1;
             var used = new bool[vertices.Length];
             var distances = new int[vertices.Length];
             distances[vertex] = 0;
