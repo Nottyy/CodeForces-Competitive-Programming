@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DijkstraShorthestPathWithPriorityQueue", "DijkstraShorthestPathWithPriorityQueue.csproj", "{BC853A93-01A0-4AAA-B138-8AD8ED270956}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC853A93-01A0-4AAA-B138-8AD8ED270956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC853A93-01A0-4AAA-B138-8AD8ED270956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC853A93-01A0-4AAA-B138-8AD8ED270956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC853A93-01A0-4AAA-B138-8AD8ED270956}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {719FCD0F-32B6-4214-AB1C-7926317D2111}
+	EndGlobalSection
+EndGlobal
