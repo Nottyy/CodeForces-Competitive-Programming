@@ -25,7 +25,7 @@ namespace DijkstraShorthestPathWithPriorityQueue
         {
             FakeInput();
             List<Node>[] vertices = ReadWeightedGraph();
-            var distances = DijsktraWithPriorityQueue(vertices, 1);
+            var distances = DijsktraWithPriorityQueue(vertices, 2);
             Console.WriteLine(String.Join(" ", distances));
         }
 
