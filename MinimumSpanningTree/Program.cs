@@ -13,14 +13,14 @@ namespace MinimumSpanningTree
     {
         private static string input = @"5
 8
+3 4 2
 1 2 2
 1 3 3
-1 4 11
 2 3 3
 2 5 15
-3 5 6
-3 4 2
-4 5 3";
+5 3 6
+4 5 3
+1 4 11";
         private static void FakeInput()
         {
             Console.SetIn(new StringReader(input));
@@ -29,11 +29,54 @@ namespace MinimumSpanningTree
         {
             FakeInput();
             List<Node>[] vertices = ReadGraph();
-            int minSpanTreeSum = MinSpanTreeSum(vertices, 4);
-            Console.WriteLine(minSpanTreeSum);
+            //int minSpanTreeSum = SumMinSpanTreeSum(vertices, 4);
+            //Console.WriteLine(minSpanTreeSum);
+            var mst = GetEdgesMinSpanTreeSum(vertices, 5);
+            for (int i = 0; i < mst.Count - 1; i++)
+            {
+                Console.WriteLine($"{mst[i][0] + " " + mst[i][1] + " " + mst[i + 1][2]}");
+            }
         }
+        private static List<int[]> GetEdgesMinSpanTreeSum(List<Node>[] vertices, int vertex)
+        {
+            var mst = new List<int[]>();
+            var sum = 0;
+            var used = new HashSet<int>();
+            var q = new PriorityQueue<Node>();
+            q.Enqueue(new Node(vertex, vertex, 0));
 
-        private static int MinSpanTreeSum(List<Node>[] vertices, int vertex)
+            while (q.Count > 0 && used.Count != vertices.Length - 1)
+            {
+                var element = q.Dequeue();
+
+                foreach (var node in vertices[element.X])
+                {
+                    if (used.Contains(node.X))
+                    {
+                        continue;
+                    }
+
+                    q.Enqueue(new Node(node.X, node.Y, node.Distance));
+                }
+
+                sum += element.Distance;
+
+                while (used.Contains(q.Peek().X))
+                {
+                    q.Dequeue();
+                }
+
+                var p = q.Peek();
+
+                var first = used.Contains(p.X) ? p.Y : p.X;
+                mst.Add(new int[] {first == p.X ? p.Y: p.X, first, sum });
+
+                used.Add(element.X);
+            }
+
+            return mst;
+        }
+        private static int SumMinSpanTreeSum(List<Node>[] vertices, int vertex)
         {
             var sum = 0;
             var used = new HashSet<int>();
@@ -44,20 +87,19 @@ namespace MinimumSpanningTree
             {
                 var element = q.Dequeue();
 
-                if (used.Contains(element.Vertex))
+                if (used.Contains(element.X))
                 {
                     continue;
                 }
 
                 sum += element.Distance;
 
-                foreach (var node in vertices[element.Vertex])
+                foreach (var node in vertices[element.X])
                 {
-
                     q.Enqueue(node);
                 }
 
-                used.Add(element.Vertex);
+                used.Add(element.X);
             }
 
             return sum;
@@ -88,7 +130,7 @@ namespace MinimumSpanningTree
                 vertices[from] = new List<Node>();
             }
 
-            vertices[from].Add(new Node(to, d));
+            vertices[from].Add(new Node(to, from, d));
         }
     }
 }

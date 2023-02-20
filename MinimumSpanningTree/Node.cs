@@ -8,12 +8,20 @@ namespace MinimumSpanningTree
 {
     public class Node :IComparable<Node>
     {
-        public int Vertex { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         public int Distance { get; set; }
 
         public Node(int vertex, int distance)
         {
-            this.Vertex = vertex;
+            this.X = vertex;
+            this.Distance = distance;
+        }
+
+        public Node(int x, int y, int distance)
+        {
+            this.X = x;
+            this.Y = y;
             this.Distance = distance;
         }
 
