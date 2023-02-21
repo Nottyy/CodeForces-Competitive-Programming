@@ -11,7 +11,7 @@ namespace MinimumSpanningTreeKruskal
     internal class Program
     {
         private static string input = @"8
-3 4 2
+3 4 22
 1 2 2
 1 3 3
 2 3 3
@@ -46,10 +46,10 @@ namespace MinimumSpanningTreeKruskal
 
         private static List<Node> MinimumSpanningTreeKruskal(PriorityQueue<Node> edges, int[] elements)
         {
-            var sum = 0;
             var result = new List<Node>();
+            var n = edges.Count;
 
-            for(var i = 0; i < edges.Count; i++)
+            for(var i = 0; i < n; i++)
             {
                 var element = edges.Dequeue();
                 var from = element.X;
@@ -65,7 +65,6 @@ namespace MinimumSpanningTreeKruskal
 
                 elements[parentFrom] = parentTo; // merging unions here
                 result.Add(element);
-                sum += element.Distance;
             }
 
             return result;
