@@ -32,7 +32,6 @@ namespace UnionFind
                     Console.WriteLine(uf.FindParentRecursive(first));
                 }
             }
-
         }
     }
 }
