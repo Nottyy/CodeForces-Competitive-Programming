@@ -10,15 +10,16 @@ namespace MinimumSpanningTreeKruskal
 {
     internal class Program
     {
-        private static string input = @"8
+        private static string input = @"9
 3 4 22
 1 2 2
-1 3 3
+3 1 3
 2 3 3
-2 5 15
 5 3 6
 4 5 3
-1 4 11";
+1 4 11
+7 8 11
+2 5 15";
 
         private static void FakeInput()
         {
@@ -52,11 +53,9 @@ namespace MinimumSpanningTreeKruskal
             for(var i = 0; i < n; i++)
             {
                 var element = edges.Dequeue();
-                var from = element.X;
-                var to = element.Y;
 
-                var parentFrom = FindParentIterative(from, elements);
-                var parentTo = FindParentIterative(to, elements);
+                var parentFrom = FindParentIterative(element.X, elements);
+                var parentTo = FindParentIterative(element.Y, elements);
 
                 if (parentFrom == parentTo)
                 {
