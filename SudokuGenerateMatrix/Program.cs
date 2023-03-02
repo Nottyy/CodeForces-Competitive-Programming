@@ -1,5 +1,7 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,170 @@ namespace SudokuGenerateMatrix
             HashSet<int>[] rows = ReadRows(matrix);
             HashSet<int>[] cols = ReadCols(matrix);
 
+            if (matrix[0, 0] == 0)
+            {
+                var nextRow = 0;
+                var nextCol = 0;
+                for (int i = 1; i <= 9; i++)
+                {
+                    var squareIndex = GetSquareIndex(nextRow, nextCol);
+
+                    if (!squares[squareIndex].Contains(i)
+                        && !rows[nextRow].Contains(i)
+                        && !cols[nextCol].Contains(i))
+                    {
+                        squares[squareIndex].Add(i);
+                        rows[nextRow].Add(i);
+                        cols[nextCol].Add(i);
+
+                        matrix[nextRow, nextCol] = i;
+
+                        DFS(matrix, squares, rows, cols, nextRow, nextCol);
+
+                        //Console.WriteLine();
+                        //PrintMatrix(matrix);
+
+                        matrix[nextRow, nextCol] = 0;
+                        squares[squareIndex].Remove(i);
+                        rows[nextRow].Remove(i);
+                        cols[nextCol].Remove(i);
+                    }
+                }
+            }
+        }
+
+        private static void DFS(int[,] matrix, HashSet<int>[] squares, HashSet<int>[] rows,
+            HashSet<int>[] cols, int row, int col)
+        {
+            if (CheckIfFinished(squares))
+            {
+                Console.WriteLine();
+                PrintMatrix(matrix);
+                return;
+            }
+
+            if (col + 1 >= matrix.GetLength(1) && row + 1 >= matrix.GetLength(0))
+            {
+                return;
+            }
+
+            int nextCol = GetNextCol(col);
+            var nextRow = GetNextRow(row, col);
+
+            if (matrix[nextRow, nextCol] == 0)
+            {
+                for (int i = 1; i <= 9; i++)
+                {
+
+                    var squareIndex = GetSquareIndex(nextRow, nextCol);
+                    if (!squares[squareIndex].Contains(i)
+                        && !rows[nextRow].Contains(i)
+                        && !cols[nextCol].Contains(i))
+                    {
+                        squares[squareIndex].Add(i);
+                        rows[nextRow].Add(i);
+                        cols[nextCol].Add(i);
+
+                        matrix[nextRow, nextCol] = i;
+
+                        DFS(matrix, squares, rows, cols, nextRow, nextCol);
+
+                        //Console.WriteLine();
+                        //PrintMatrix(matrix);
+
+                        matrix[nextRow, nextCol] = 0;
+                        squares[squareIndex].Remove(i);
+                        rows[nextRow].Remove(i);
+                        cols[nextCol].Remove(i);
+                    }
+                }
+            }
+            else
+            {
+                DFS(matrix, squares, rows, cols, nextRow, nextCol);
+            }
+        }
+
+        private static int GetNextRow(int row, int col)
+        {
+            return col + 1 >= 9 ? row + 1 : row;
+        }
+
+        private static int GetNextCol(int col)
+        {
+            var nextCol = col + 1;
+            if (nextCol >= 9)
+            {
+                nextCol = 0;
+            }
+
+            return nextCol;
+        }
+
+        private static int GetSquareIndex(int row, int col)
+        {
+            // 1, 2, 3
+            if (row <= 2 && col <= 2)
+            {
+                return 0;
+            }
+
+            if (row <= 2 && (col > 2 && col <= 5))
+            {
+                return 1;
+            }
+
+            if (row <= 2 && (col > 5 && col <= 8))
+            {
+                return 2;
+            }
+
+            // 3, 4, 5
+            if (row > 2 && row <= 5 && col <= 2)
+            {
+                return 3;
+            }
+
+            if (row > 2 && row <= 5 && (col > 2 && col <= 5))
+            {
+                return 4;
+            }
+
+            if (row > 2 && row <= 5 && (col > 5 && col <= 8))
+            {
+                return 5;
+            }
+
+            // 6, 7, 8
+            if (row > 5 && row <= 8 && col <= 2)
+            {
+                return 6;
+            }
+
+            if (row > 5 && row <= 8 && (col > 2 && col <= 5))
+            {
+                return 7;
+            }
+
+            if (row > 5 && row <= 8 && (col > 5 && col <= 8))
+            {
+                return 8;
+            }
+
+            return default;
+        }
+
+        private static bool CheckIfFinished(HashSet<int>[] squares)
+        {
+            for (int i = 0; i < squares.Length; i++)
+            {
+                if (squares[i].Count < 9)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private static HashSet<int>[] ReadCols(int[,] matrix)
