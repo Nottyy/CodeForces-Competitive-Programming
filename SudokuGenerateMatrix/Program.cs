@@ -12,6 +12,20 @@ namespace SudokuGenerateMatrix
     {
         static void Main(string[] args)
         {
+            /*
+            Start pattern:
+
+            - - - 3 - 2 - - -
+            - 5 - 7 9 8 - 3 -
+            - - 7 - - - 8 - -
+            - - 8 6 - 7 3 - -
+            - 7 - - - - - 6 -
+            - - 3 5 - 4 1 - -
+            - - 5 - - - 6 - -
+            - 2 - 4 1 9 - 5 -
+            - - - 8 - 6 - - -
+
+            */
             var matrix = ReadSudokuMatrix();
             PrintMatrix(matrix);
 
