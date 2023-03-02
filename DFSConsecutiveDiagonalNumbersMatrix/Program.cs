@@ -14,27 +14,27 @@ namespace DFSConsecutiveDiagonalNumbersMatrix
         {
             int n = 3;
             int[,] matrix = new int[n, n];
-            //matrix[0, 0] = 2;
-            //matrix[0, 1] = 6;
-            //matrix[0, 2] = 5;
+            matrix[0, 0] = 2;
+            matrix[0, 1] = 6;
+            matrix[0, 2] = 5;
 
-            //matrix[1, 0] = 1;
-            //matrix[1, 1] = 7;
-            //matrix[1, 2] = 9;
+            matrix[1, 0] = 1;
+            matrix[1, 1] = 7;
+            matrix[1, 2] = 9;
 
-            //matrix[2, 0] = 3;
-            //matrix[2, 1] = 3;
-            //matrix[2, 2] = 9;
+            matrix[2, 0] = 3;
+            matrix[2, 1] = 3;
+            matrix[2, 2] = 9;
 
-            Random rnd = new Random();
+            //Random rnd = new Random();
 
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    matrix[i, j] = rnd.Next(10);
-                }
-            }
+            //for (int i = 0; i < n; i++)
+            //{
+            //    for (int j = 0; j < n; j++)
+            //    {
+            //        matrix[i, j] = rnd.Next(10);
+            //    }
+            //}
 
             PrintMatrix(matrix);
 
@@ -68,10 +68,6 @@ namespace DFSConsecutiveDiagonalNumbersMatrix
                 return;
             }
 
-            if (visited[row])
-            {
-                return;
-            }
 
             var curDigit = path % 10;
             visited[row] = true;
