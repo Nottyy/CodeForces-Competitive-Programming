@@ -1,2 +1,2 @@
 # CodeForces-Competitive-Programming
-Practice Competitive Programming with JAVA and C#
+Practicing Competitive Programming with JAVA and C#
